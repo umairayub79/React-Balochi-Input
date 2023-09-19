@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Seamless Balochi typing in React, no system adjustments needed.",
   "author": "Umair Ayub",
+  "license": "MIT",
   "keywords": [
     "balochi-input",
     "react-balochi-input",
