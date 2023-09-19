@@ -1,7 +1,8 @@
 # react-balochi-input
 
-![GitHub License](https://img.shields.io/github/license/umairayub79/react-balochi-input)
-![npm Version](https://img.shields.io/npm/v/react-balochi-input)
+![NPM License](https://img.shields.io/npm/l/react-balochi-input?style=for-the-badge&logo=mit) 
+[![NPM Version](https://img.shields.io/npm/v/react-balochi-input?style=for-the-badge)](https://www.npmjs.com/package/react-balochi-input)
+
 
 ## Overview
 
@@ -33,7 +34,7 @@ import BalochiInput from 'react-balochi-input';
 
 const YourComponent = () => {
   const [inputValue, setInputValue] = useState('Ab')
-  
+
   const handleBalochiInputChange = (balochiText) => {
     setInputValue(balochi)
     console.log(balochiText);
