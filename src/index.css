@@ -1,0 +1,65 @@
+body {
+  font-family: sans-serif;
+  background-color: rgb(33, 38, 48);
+  color: rgb(221, 221, 221);
+}
+
+.app-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 50px;
+}
+
+.app-heading {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.app-paragraph {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.balochi-input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+.app-code {
+  text-align: start;
+  background-color: #2a3444;
+  color: rgb(233, 233, 233);
+  border-radius: 4px;
+  padding: 15px;
+  font-size: 1rem;
+  margin: 0;
+  width: fit-content;
+}
+
+.app-code {
+  position: relative;
+}
+
+.copy-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.copy-button:hover {
+  transform: scale(1.2);
+}
+.copy-button.copied {
+  pointer-events: none;
+}
