@@ -5,10 +5,15 @@ const BalochiInput = ({
   onChange,
   value,
   placeholder,
+  allowSwitching = false,
   ...props
 }) => {
+  // State to track Shift key mode
   const [isShiftMode, setIsShiftMode] = useState(false);
 
+  const [englishMode, setEnglishMode] = useState(false);
+
+  // Function to convert English(Latin) characters to their Balochi counterparts
   const convertToBalochi = (englishText) => {
     const normalMap = {
       q: "ق",
@@ -65,7 +70,7 @@ const BalochiInput = ({
       N: "ں",
       M: "اَنت",
 
-      "`": 'ً',
+      "`": "ً",
       ";": "؛",
       "'": "ۂ",
       ",": "،",
@@ -74,23 +79,23 @@ const BalochiInput = ({
     };
 
     const shiftMap = {
-      "," : "ِ", // , caps on
-      "<" : "ِ",
+      ",": "ِ", // , caps on
+      "<": "ِ",
 
-      "." : "َ", // . caps on
-      ">" : "َ",
-      
-      "/" : "؟", // caps on
-      "?" : "؟",
+      ".": "َ", // . caps on
+      ">": "َ",
 
-      ";" : ":", // caps on
-      ":" : ":",
- 
-      "'" : "‘",// / caps on
-      "\"" : "‘",
+      "/": "؟", // caps on
+      "?": "؟",
 
-      "0" : "ّ",// / caps on
-      ")" : "ّ",
+      ";": ":", // caps on
+      ":": ":",
+
+      "'": "‘", // / caps on
+      '"': "‘",
+
+      0: "ّ", // / caps on
+      ")": "ّ",
     };
 
     let balochiText = "";
@@ -107,9 +112,11 @@ const BalochiInput = ({
     return balochiText;
   };
 
+  // State to store converted input value
   const [inputValue, setInputValue] = useState(convertToBalochi(value || ""));
 
   useEffect(() => {
+    // Event listener for key down to handle Shift key and input mode changes
     const handleKeyDown = (e) => {
       if (
         e.key === "Shift" ||
@@ -117,8 +124,15 @@ const BalochiInput = ({
       ) {
         setIsShiftMode(true);
       }
+
+      if (e.ctrlKey && e.keyCode === 32) {
+        if (allowSwitching) {
+          setEnglishMode((prev) => (prev ? false : true));
+        }
+      }
     };
 
+    // Event listener for key up to handle Shift key
     const handleKeyUp = (e) => {
       if (
         e.key === "Shift" ||
@@ -128,21 +142,37 @@ const BalochiInput = ({
       }
     };
 
+    // Add event listeners when component mounts
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
 
+    // Remove event listeners when component unmounts
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, []);
+  }, [allowSwitching]);
 
+  // Handler for input changes
   const handleInputChange = (e) => {
-    const { value } = e.target;
-    const convertedValue = convertToBalochi(value);
-    setInputValue(convertedValue);
+    const { nativeEvent, target } = e;
+    const { value } = target;
+    let newValue;
+
+    // Check if the input event is triggered by typing and not in English mode
+    if (nativeEvent.inputType === "insertText" && !englishMode) {
+      // If so, convert the last character from English to Balochi
+      newValue =
+        value.slice(0, -1) + convertToBalochi(value.charAt(value.length - 1));
+    } else {
+      // If not, keep the value as it is
+      newValue = value;
+    }
+
+    setInputValue(newValue);
+
     if (onChange) {
-      onChange(convertedValue);
+      onChange(newValue);
     }
   };
 
@@ -154,7 +184,6 @@ const BalochiInput = ({
       value={inputValue}
       onChange={handleInputChange}
       placeholder={placeholder}
-      aria-label=""
       {...props}
     />
   );

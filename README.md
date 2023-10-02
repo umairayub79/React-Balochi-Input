@@ -59,7 +59,8 @@ export default YourComponent;
 - `value` (string): Initial value for the input field.
 - `onChange` (function): Callback function triggered on input change, providing the Balochi text.
 - `placeholder` (string): Placeholder text for the input field.
-- custom props : Accepts custom props for further customization.
+- `allowSwitching` (boolean): Enable or disable dynamic switching between English and Balochi modes using `Ctrl + Space`.
+- `custom props` : Accepts custom props for further customization.
 
 
 ## Development
