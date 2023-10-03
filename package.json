@@ -1,6 +1,6 @@
 {
   "name": "react-balochi-input",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Seamless Balochi typing in React, no system adjustments needed.",
   "author": "Umair Ayub",
   "license": "MIT",
@@ -28,6 +28,7 @@
   },
   "scripts": {
     "dev": "vite",
+    "prepack": "rm -rf ./dist && npm run build",
     "build": "vite build",
     "test": "vitest run",
     "watch": "vitest",
